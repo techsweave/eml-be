@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@functions": [
+        "src/functions"
+      ],
+      "@products/*": [
+        "src/functions/products/*"
+      ],
+      "@carts/*": [
+        "src/functions/carts/*"
+      ],
+      "@checkout/*": [
+        "src/functions/checkout/*"
+      ],
+      "@libs/*": [
+        "src/libs/*"
+      ]
+    }
+  }
+}

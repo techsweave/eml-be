@@ -16,6 +16,9 @@
             ],
             "@libs/*": [
                 "src/libs/*"
+            ],
+            "@models/*": [
+                "src/models/*"
             ]
         }
     }

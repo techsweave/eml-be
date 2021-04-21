@@ -73,9 +73,7 @@ const serverlessConfiguration: AWS = {
     plugins: [
         'serverless-webpack',
         'serverless-offline',
-        'serverless-bundle',
-        'serverless-dynamodb-local',
-        'serverless-domain-manager',
+        'serverless-dynamodb-local'
     ],
 
     package: {
@@ -87,7 +85,7 @@ const serverlessConfiguration: AWS = {
             productsTable: {
                 Type: 'AWS::DynamoDB::Table',
                 Properties: {
-                    TableName: '${self:custom.products_table}',
+                    TableName: '${self:custom.productsTable}',
                     AttributeDefinitions: [
                         { AttributeName: 'ID', AttributeType: 'S' }
                     ],
@@ -99,7 +97,7 @@ const serverlessConfiguration: AWS = {
             cartsTable: {
                 Type: 'AWS::DynamoDB::Table',
                 Properties: {
-                    TableName: '${self:custom.carts_table}',
+                    TableName: '${self:custom.cartsTable}',
                     AttributeDefinitions: [
                         { AttributeName: 'ID', AttributeType: 'S' }
                     ],

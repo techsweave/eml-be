@@ -17,8 +17,11 @@
             "@libs/*": [
                 "src/libs/*"
             ],
-            "@models/*": [
-                "src/models/*"
+            "@dbModel/*": [
+                "src/models/database/*"
+            ],
+            "@lamdaModel/*": [
+                "src/models/schema/*"
             ]
         }
     }

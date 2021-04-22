@@ -1,16 +1,29 @@
 import 'source-map-support/register';
 
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
-import { formatJSONResponse } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
+import Product from '@dbModel/tables/product';
+import Response from '@lamdaModel/lamdaResponse'
+import dbContext from '@dbModel/dbContext';
 
-// import schema from './schema';
 
-const scan: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
-    return formatJSONResponse({
-        message: event,
-        event,
-    });
+/*
+ * Remember: event.body type is the type of the instantiation of ValidatedEventAPIGatewayProxyEvent
+ * In this case event.body type is 'void' -> we have no body!
+*/
+const getProduct: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
+    let response: Response<Product>;
+
+    let item = new Product();
+    item.id = event.pathParameters?.id;
+
+    try {
+        response = new Response<Product>(200, await dbContext.get(item));
+    }
+    catch (error) {
+        response = new Response<Product>(500, null, error.message as string);
+    }
+    return response.ToPIGatewayProxyResult();
 }
 
-export const main = middyfy(scan);
+export const main = middyfy(getProduct);

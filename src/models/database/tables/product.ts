@@ -20,6 +20,9 @@ class Product {
 
     @attribute()
     description: string;
+
+    @attribute()
+    availability: number;
 }
 
 export default Product;

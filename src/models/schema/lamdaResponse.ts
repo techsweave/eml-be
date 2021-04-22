@@ -17,8 +17,19 @@ export default class Response<T> {
     */
     ToPIGatewayProxyResult(): APIGatewayProxyResult {
         let response: APIGatewayProxyResult;
-
-        if (this._data.length == 1) {
+        if (this._error != null) {
+            response = {
+                statusCode: this._statusCode,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    error: this._error,
+                    count: 0
+                })
+            };
+        }
+        else if (this._data.length == 1) {
             response = {
                 statusCode: this._statusCode,
                 headers: {

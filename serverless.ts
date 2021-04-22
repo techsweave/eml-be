@@ -45,8 +45,8 @@ const serverlessConfiguration: AWS = {
         stage: '${opt:stage, self:provider.stage}',
         productsTable: 'products-table',
         cartsTable: 'carts-table',
-        stripeSecretKey: 'sk_test_51IgsmkDGejH30endCMGNwVS7q3fhrhyG4lggmRijVkVqJwCbAnNh5ZuxKkPn30ljIrDOCLmxF5f7EkR2xOdATNdB004YsbVQqe', //DA CAMBIARE
-        cognitoPoolID: 'eu-central-1_mM30b9ZY4', //DA CAMBIARE
+        stripeSecretKey: 'sk_test_51Ij41SF20K2KHUILxXq9l5A2CbPS6VtYNmH4Ij0PPZyxatNDMTyovfiFjdYtOaQvbrDCokLPhorse1BxVPNXt1jW0032wODV69',
+        cognitoPoolID: 'eu-central-1_eciEUvwzp',
         dynamodb: {
             stages: ['dev'],
             start: {
@@ -112,10 +112,10 @@ const serverlessConfiguration: AWS = {
                     AuthorizerResultTtlInSeconds: 300,
                     IdentitySource: 'method.request.header.Authorization',
                     Name: 'Cognito',
-                    RestApiId: 'eu-central-1_mM30b9ZY4', //DA CAMBIARE
+                    RestApiId: 'eu-central-1_eciEUvwzp',
                     Type: 'COGNITO_USER_POOLS',
                     ProviderARNs: [
-                        { arn: 'arn:aws:cognito-idp:eu-central-1:371413113666:userpool/eu-central-1_mM30b9ZY4' } //DA CAMBIARE
+                        { arn: 'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp' }
                     ]
                 }
             }
@@ -135,6 +135,6 @@ module.exports = serverlessConfiguration;
 
 
 //   USERPOOL:
-//     ID: 'eu-central-1_mM30b9ZY4'
-// ARN: 'arn:aws:cognito-idp:eu-central-1:371413113666:userpool/eu-central-1_mM30b9ZY4'
+//     ID: 'eu-central-1_eciEUvwzp'
+// ARN: 'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp'
 

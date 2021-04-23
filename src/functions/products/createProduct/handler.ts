@@ -2,7 +2,7 @@ import 'source-map-support/register';
 
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
-import Response from '@lamdaModel/lamdaResponse';
+import Response from '@lamdaModel/lambdaResponse';
 import Product from '@dbModel/tables/product';
 
 /*
@@ -11,7 +11,7 @@ import Product from '@dbModel/tables/product';
 */
 const createProduct: ValidatedEventAPIGatewayProxyEvent<Product> = async (event) => {
     let response: Response<Product>;
-    return response.ToPIGatewayProxyResult();
+    return await response.toAPIGatewayProxyResult();
 }
 
 export const main = middyfy(createProduct);

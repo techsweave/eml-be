@@ -23,6 +23,9 @@ class Product {
 
     @attribute()
     availability: number;
+
+    @attribute()
+    discount: number;
 }
 
 export default Product;

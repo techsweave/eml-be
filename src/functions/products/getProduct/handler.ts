@@ -5,6 +5,7 @@ import { middyfy } from '@libs/lambda';
 import Product from '@dbModel/tables/product';
 import Response from '@lamdaModel/lambdaResponse'
 import dbContext from '@dbModel/dbContext';
+import HttpStatusCodes from '@lamdaModel/httpStatusCodes';
 
 
 /*
@@ -18,10 +19,10 @@ const getProduct: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
     item.id = event.pathParameters?.id;
 
     try {
-        response = new Response<Product>(await dbContext.get(item));
+        response = new Response<Product>(HttpStatusCodes.OK, await dbContext.get(item));
     }
     catch (error) {
-        response = new Response<Product>(null, error);
+        response = new Response<Product>(null, null, error);
     }
     return await response.toAPIGatewayProxyResult();
 }

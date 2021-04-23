@@ -1,15 +1,17 @@
 import { APIGatewayProxyResult } from "aws-lambda";
 import { AWSError } from 'aws-sdk';
 import { errorNameToHttpStatusCode } from '@shared/index';
+import HttpStatusCodes from "./httpStatusCodes";
 
 export default class Response<T> {
     private _statusCode: number;
     private _data?: T[] = new Array(); // This is an array, in order to use scan and get whit the same response class
     private _error?: AWSError;
 
-    constructor(data?: T, error?: AWSError) {
-        this._statusCode = 200;
+    constructor(statusCode: HttpStatusCodes, data?: T, error?: AWSError) {
 
+        if (data && statusCode < 300 && statusCode >= 200)
+            this._statusCode = statusCode;
         if (error == null) {
             this._data.push(data);
         }

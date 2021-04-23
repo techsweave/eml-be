@@ -25,6 +25,9 @@
             ],
             "@shared/*": [
                 "src/libs/shared/*"
+            ],
+            "@schema/*": [
+                "src/models/schema/*"
             ]
         }
     }

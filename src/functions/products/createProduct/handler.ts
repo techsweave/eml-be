@@ -7,6 +7,7 @@ import Product from '@dbModel/tables/product';
 import schema from '@schema/lambdaSchema/createProduct';
 import dbContext from '@dbModel/dbContext';
 import HttpStatusCodes from '@lamdaModel/httpStatusCodes';
+
 /*
  * Remember: event.body type is the type of the instantiation of ValidatedEventAPIGatewayProxyEvent
  * In this case event.body type is type of 'Product'
@@ -23,10 +24,10 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         putProduct.availability = event.body?.avaiability;
         putProduct.discount = event.body?.discount;
 
-        res = new Response<Product>(HttpStatusCodes.CREATED, await dbContext.put(putProduct));
+        res = Response.fromData<Product>(await dbContext.put(putProduct), HttpStatusCodes.CREATED);
 
     } catch (error) {
-        res = new Response<Product>(null, null, error);
+        res = Response.fromError<Product>(error);
     }
     return await res.toAPIGatewayProxyResult();
 }

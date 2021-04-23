@@ -19,10 +19,10 @@ const getProduct: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
     item.id = event.pathParameters?.id;
 
     try {
-        response = new Response<Product>(HttpStatusCodes.OK, await dbContext.get(item));
+        response = Response.fromData<Product>(await dbContext.get(item), HttpStatusCodes.OK);
     }
     catch (error) {
-        response = new Response<Product>(null, null, error);
+        response = Response.fromError<Product>(error);
     }
     return await response.toAPIGatewayProxyResult();
 }

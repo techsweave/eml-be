@@ -1,6 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 
-import { getProduct, getCart, createProduct, createCart, createCheckout } from '@functions';
+import { getProduct, getCart, createProduct, createCart, createCheckout } from '@functions/index';
 
 
 const serverlessConfiguration: AWS = {

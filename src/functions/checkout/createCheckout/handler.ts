@@ -1,16 +1,13 @@
 import 'source-map-support/register';
 
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
-import { formatJSONResponse } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
+import Response from '@lamdaModel/lambdaResponse';
 
-// import schema from './schema';
 
-const scan: ValidatedEventAPIGatewayProxyEvent<any> = async (event) => {
-    return formatJSONResponse({
-        message: event,
-        event,
-    });
+const scan: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
+    let response: Response<void>;
+    return await response.toAPIGatewayProxyResult();
 }
 
 export const main = middyfy(scan);

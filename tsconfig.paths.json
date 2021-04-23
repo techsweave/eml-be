@@ -2,8 +2,8 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@functions": [
-                "src/functions"
+            "@functions/*": [
+                "src/functions/*"
             ],
             "@products/*": [
                 "src/functions/products/*"
@@ -17,8 +17,14 @@
             "@libs/*": [
                 "src/libs/*"
             ],
-            "@models/*": [
-                "src/models/*"
+            "@dbModel/*": [
+                "src/models/database/*"
+            ],
+            "@lamdaModel/*": [
+                "src/models/schema/*"
+            ],
+            "@shared/*": [
+                "src/libs/shared/*"
             ]
         }
     }

@@ -4,14 +4,28 @@ import { errorNameToHttpStatusCode } from '@shared/index';
 import HttpStatusCodes from "./httpStatusCodes";
 
 export default class Response<T> {
+
     private _statusCode: number;
     private _data?: T[] = new Array(); // This is an array, in order to use scan and get whit the same response class
     private _error?: AWSError;
 
-    constructor(statusCode: HttpStatusCodes, data?: T, error?: AWSError) {
 
-        if (data && statusCode < 300 && statusCode >= 200)
-            this._statusCode = statusCode;
+
+    static fromData<U>(data: U, statusCode: HttpStatusCodes): Response<U> {
+        if (statusCode < 200 || statusCode >= 300) {
+            throw new Error('If a response has data, the status code must be between 200 and 299');
+        }
+        return new Response<U>(statusCode, data);
+    }
+
+    static fromError<U>(error: AWSError): Response<U> {
+        return new Response<U>(null, null, error);
+    }
+
+
+    // Private constructor, must use factory method!
+    private constructor(statusCode: HttpStatusCodes, data?: T, error?: AWSError) {
+        this._statusCode = statusCode;
         if (error == null) {
             this._data.push(data);
         }

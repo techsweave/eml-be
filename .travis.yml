@@ -8,7 +8,7 @@ install:
   - npm install
 
 script:
-  - serverless
+  - serverless deploy
 
 branches:
   only:

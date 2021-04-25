@@ -61,13 +61,16 @@ const serverlessConfiguration: AWS = {
             migration: {
                 dir: 'offline/migrations',
             },
-            customDomain: {
-                domainName: 'api.techSWEave.shop',
-                basePath: '${self:provider.stage}',
-                stage: '${self:provider.stage}',
-                createRoute53Record: true,
-            }
+            // customDomain: {
+            //     domainName: 'api.techSWEave.shop',
+            //     basePath: '${self:provider.stage}',
+            //     stage: '${self:provider.stage}',
+            //     createRoute53Record: true,
+            // }
         },
+        webpack: {
+            includeModules: true,
+        }
     },
 
     plugins: [
@@ -87,38 +90,49 @@ const serverlessConfiguration: AWS = {
                 Properties: {
                     TableName: '${self:custom.productsTable}',
                     AttributeDefinitions: [
-                        { AttributeName: 'ID', AttributeType: 'S' }
+                        { AttributeName: 'id', AttributeType: 'S' }
                     ],
                     KeySchema: [
-                        { AttributeName: 'ID', KeyType: 'HASH' }
-                    ]
-                }
+                        { AttributeName: 'id', KeyType: 'HASH' }
+                    ],
+                    ProvisionedThroughput: {
+                        ReadCapacityUnits: "5",
+                        WriteCapacityUnits: "5"
+                    }
+                },
+
             },
             cartsTable: {
                 Type: 'AWS::DynamoDB::Table',
                 Properties: {
                     TableName: '${self:custom.cartsTable}',
                     AttributeDefinitions: [
-                        { AttributeName: 'ID', AttributeType: 'S' }
+                        { AttributeName: 'id', AttributeType: 'S' }
                     ],
                     KeySchema: [
-                        { AttributeName: 'ID', KeyType: 'HASH' }
-                    ]
+                        { AttributeName: 'id', KeyType: 'HASH' }
+                    ],
+                    ProvisionedThroughput: {
+                        ReadCapacityUnits: "5",
+                        WriteCapacityUnits: "5"
+                    }
                 }
             },
-            ApiGatewayAuthorizer: {
-                Type: 'AWS::ApiGateway::Authorizer',
-                Properties: {
-                    AuthorizerResultTtlInSeconds: 300,
-                    IdentitySource: 'method.request.header.Authorization',
-                    Name: 'Cognito',
-                    RestApiId: 'eu-central-1_eciEUvwzp',
-                    Type: 'COGNITO_USER_POOLS',
-                    ProviderARNs: [
-                        { arn: 'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp' }
-                    ]
-                }
-            }
+            //TODO
+            //An error occurred: ApiGatewayAuthorizer - Invalid API identifier specified 780844780884:eu-central-1_eciEUvwzp (Service: AmazonApiGateway; Status Code: 404; Error Code: NotFoundException; Request ID: 8f13cde5-8392-4ddc-889c-3da757643788; Proxy: null).
+            // ApiGatewayAuthorizer: {
+            //     Type: 'AWS::ApiGateway::Authorizer',
+            //     Properties: {
+            //         AuthorizerResultTtlInSeconds: 300,
+            //         IdentitySource: 'method.request.header.Authorization',
+            //         Name: 'Cognito',
+            //         RestApiId: 'eu-central-1_eciEUvwzp',
+            //         Type: 'COGNITO_USER_POOLS',
+            //         ProviderARNs: [
+            //             'arn:aws:cognito-idp:eu-central-1:780844780884:userpool/eu-central-1_eciEUvwzp',
+            //         ]
+            //     }
+            // }
         },
     },
     // import the function via paths

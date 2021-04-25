@@ -21,7 +21,7 @@ const createProduct: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         putProduct.name = event.body.name;
         putProduct.price = event.body?.price;
         putProduct.description = event.body?.description;
-        putProduct.availability = event.body?.avaiability;
+        putProduct.availability = event.body?.availability;
         putProduct.discount = event.body?.discount;
 
         res = Response.fromData<Product>(await dbContext.put(putProduct), HttpStatusCodes.CREATED);

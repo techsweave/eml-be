@@ -4,7 +4,7 @@ export default {
         name: { type: 'string' },
         price: { type: 'number' },
         description: { type: 'string' },
-        avaiability: { type: 'number' },
+        availability: { type: 'number' },
         discount: { type: 'number' }
     },
     required: ['name', 'price']

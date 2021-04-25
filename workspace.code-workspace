@@ -1,19 +1,46 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"editor.autoIndent": "full",
-		"editor.tabSize": 4,
-		"editor.detectIndentation": false,
-		"typescript.format.placeOpenBraceOnNewLineForControlBlocks": false,
-		"typescript.format.placeOpenBraceOnNewLineForFunctions": false,
-		"editor.formatOnPaste": true,
-		"editor.formatOnSave": true,
-		"files.associations": {
-			"*.ts": "typescript"
-		}
-	}
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "editor.autoIndent": "full",
+        "editor.tabSize": 4,
+        "editor.detectIndentation": false,
+        "typescript.format.placeOpenBraceOnNewLineForControlBlocks": false,
+        "typescript.format.placeOpenBraceOnNewLineForFunctions": false,
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true,
+        "files.associations": {
+            "*.ts": "typescript"
+        }
+    },
+    "launch": {
+        // Use IntelliSense to learn about possible attributes.
+        // Hover to view descriptions of existing attributes.
+        // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Debug",
+                "type": "node",
+                "request": "launch",
+                "cwd": "${workspaceRoot}",
+                "runtimeExecutable": "npm",
+                "runtimeArgs": [
+                    "run-script",
+                    "debug"
+                ],
+                "windows": {
+                    "runtimeArgs": [
+                        "run-script",
+                        "debugWindows"
+                    ],
+                },
+                "port": 5858,
+                "console": "internalConsole"
+            }
+        ]
+    }
 }

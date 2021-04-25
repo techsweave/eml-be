@@ -8,33 +8,44 @@ export default class Response<T> {
     private _statusCode: number;
     private _data?: T[] = new Array(); // This is an array, in order to use scan and get whit the same response class
     private _error?: AWSError;
+    private _lastEvaluatedKey?: Partial<T>;
 
-
+    static fromMultipleData<U>(data: U[], statusCode: HttpStatusCodes, lastEvaluatedKey: Partial<U>): Response<U> {
+        if (statusCode < 200 || statusCode >= 300) {
+            throw new Error('If a response has data, the status code must be between 200 and 299');
+        }
+        let res = new Response<U>();
+        res._data = data;
+        res._statusCode = statusCode;
+        res._lastEvaluatedKey = lastEvaluatedKey;
+        return res;
+    }
 
     static fromData<U>(data: U, statusCode: HttpStatusCodes): Response<U> {
         if (statusCode < 200 || statusCode >= 300) {
             throw new Error('If a response has data, the status code must be between 200 and 299');
         }
-        return new Response<U>(statusCode, data);
+        let res = new Response<U>();
+        res._data[0] = data;
+        res._statusCode = statusCode;
+        return res;
     }
 
     static fromError<U>(error: AWSError): Response<U> {
-        return new Response<U>(null, null, error);
+        let res = new Response<U>();
+        res._error = error;
+        return res;
     }
 
+    hasData(): boolean {
+        return this._data?.length != 0;
+    }
 
-    // Private constructor, must use factory method!
-    private constructor(statusCode: HttpStatusCodes, data?: T, error?: AWSError) {
-        this._statusCode = statusCode;
-        if (error == null) {
-            this._data.push(data);
+    addPage(data: T[], lastEvaluatedKey: Partial<T>): void {
+        if (this.hasData()) {
+            this._data = this._data.concat(data);
+            this._lastEvaluatedKey = lastEvaluatedKey;
         }
-        this._error = error;
-    }
-
-    addData(data: T): void {
-        if (this._error == null) throw new Error('Cannot add data if an error occurred');
-        this._data.push(data);
     }
 
     /*
@@ -65,14 +76,16 @@ export default class Response<T> {
             response.body = JSON.stringify({
                 data: this._data[0],
                 error: this._error?.message,
-                count: 1
+                count: 1,
+                lastEvaluatedKey: this._lastEvaluatedKey
             });
         }
         else {
             response.body = JSON.stringify({
                 data: this._data,
                 error: this._error?.message,
-                count: this._data?.length
+                count: this._data?.length,
+                lastEvaluatedKey: this._lastEvaluatedKey
             });
         }
         return Promise.resolve(response);

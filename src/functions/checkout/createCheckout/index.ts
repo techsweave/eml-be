@@ -7,7 +7,7 @@ export default {
         {
             http: {
                 method: 'post',
-                path: 'checkout/{id}',
+                path: 'checkout',
                 cors: true
             }
         }

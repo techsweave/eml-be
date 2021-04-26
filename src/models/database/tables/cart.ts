@@ -20,6 +20,9 @@ class CartRow {
 
     @attribute()
     quantity: number;
+
+    @attribute()
+    totalPrice: number;
 }
 
 export default CartRow;

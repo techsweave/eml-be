@@ -7,7 +7,7 @@ export default {
         {
             http: {
                 method: 'get',
-                path: 'cart/{id}',
+                path: 'cart',
                 cors: true
             }
         }

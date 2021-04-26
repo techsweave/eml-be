@@ -19,9 +19,11 @@
         "@middy/http-json-body-parser": "^1.5.2",
         "@types/uuid": "^8.3.0",
         "aws-sdk": "^2.888.0",
+        "axios": "^0.21.1",
         "serverless-dynamodb-local": "^0.2.39",
         "serverless-offline": "^6.9.0",
         "source-map-support": "^0.5.19",
+        "stripe": "^8.145.0",
         "uuid": "^8.3.2"
     },
     "devDependencies": {

@@ -1,5 +1,6 @@
 // import schema from './schema';
 import { handlerPath } from '@libs/handlerResolver';
+import schema from '@schema/lambdaSchema/createCheckout';
 
 export default {
     handler: `${handlerPath(__dirname)}/handler.main`,
@@ -7,8 +8,13 @@ export default {
         {
             http: {
                 method: 'post',
-                path: 'checkout/{id}',
-                cors: true
+                path: 'checkout',
+                cors: true,
+                request: {
+                    schema: {
+                        'application/json': schema
+                    }
+                }
             }
         }
     ]

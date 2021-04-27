@@ -7,7 +7,7 @@ export default {
         {
             http: {
                 method: 'get',
-                path: 'cart',
+                path: 'cart/home/samuele/Scrivania/eml-be/src/functions/checkout/createCheckout/handler.ts',
                 cors: true
             }
         }

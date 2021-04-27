@@ -44,6 +44,7 @@ import Response from '@lamdaModel/lambdaResponse';
 import CartRow from '@dbModel/tables/cart';
 import dbContext from '@dbModel/dbContext';
 import HttpStatusCodes from '@lamdaModel/httpStatusCodes';
+import getCart from '@carts/getCart/function'
 const AWS = require('aws-sdk');
 AWS.config.logger = console;
 
@@ -51,33 +52,14 @@ AWS.config.logger = console;
  * Remember: event.body type is the type of the instantiation of ValidatedEventAPIGatewayProxyEvent
  * In this case event.body type is type of 'Cart'
 */
-const getCart: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
+const getCartHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
     let res: Response<CartRow> = new Response<CartRow>();
-
     try {
-        const paginator = dbContext.scan(CartRow, {
-            filter: {
-                type: "Equals",
-                subject: "customerId",
-                object: 'customerDefault' //TODO
-            }
-        }).pages();
-        let cart = new Array<CartRow>();
-        for await (const page of paginator) {
-            // page.forEach(element => {
-            //     if (element.customerId != event.pathParameters?.customerId)
-            //         cart.push(element);
-            // });
-
-            if (!res.hasData()) {
-                res = Response.fromMultipleData(page, HttpStatusCodes.OK, paginator.lastEvaluatedKey);
-            } else
-                res.addPage(cart, paginator.lastEvaluatedKey);
-        }
+        let scanRes = await getCart('customerDefault');
+        res = Response.fromMultipleData(scanRes.items, HttpStatusCodes.OK, scanRes.lastKey);
     } catch (error) {
         res = Response.fromError<CartRow>(error);
     }
     return await res.toAPIGatewayProxyResult();
 }
-
-export const main = middyfy(getCart);
+export const main = middyfy(getCartHandler);

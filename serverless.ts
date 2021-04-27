@@ -26,7 +26,7 @@ const serverlessConfiguration: AWS = {
             STAGE: '${self:provider.stage}',
             PRODUCTS_TABLE: '${self:custom.productsTable}',
             CARTS_TABLE: '${self:custom.cartsTable}',
-            STRIPE_SECRET_KEY: '${sel:custom.stripeSecretKey'
+            STRIPE_SECRET_KEY: '${self:custom.stripeSecretKey}'
         },
 
         iamRoleStatements: [

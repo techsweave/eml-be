@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "./node_modules/.bin/serverless offline -s dev",
-        "debug": "export SLS_DEBUG=* && node --debug ./node_modules/.bin/serverless offline -s dev",
+        "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline -s dev",
         "debugWindows": "SET export SLS_DEBUG=* && node --nolazy --inspect node_modules/serverless/bin/serverless offline -s dev"
     },
     "engines": {

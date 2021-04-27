@@ -17,7 +17,7 @@ const createCheckout = async (customerId: string, successUrl: string, cancelUrl?
                     name: productGet.name,
                     description: productGet.description,
                 },
-                unit_amount: productGet.price,
+                unit_amount: productGet.price * 100, // eur to cent conversion
             },
             quantity: i.quantity
         })

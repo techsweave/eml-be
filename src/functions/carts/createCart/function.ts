@@ -1,31 +1,5 @@
-import dbContext from "@dbModel/dbContext";
-import CartRow from "@dbModel/tables/cart";
-import Product from "@dbModel/tables/product";
-
-const scanCart = async (customerId: string): Promise<{
-    items: CartRow[],
-    lastKey: Partial<CartRow>
-}> => {
-    let items: CartRow[] = new Array();
-    let lastKey: Partial<CartRow>;
-
-    let paginator = dbContext.scan(CartRow, {
-        filter: {
-            type: "Equals",
-            subject: "customerId",
-            object: customerId
-        }
-    }).pages();
-
-    for await (const page of paginator) {
-        items = items.concat(page);
-        lastKey = paginator.lastEvaluatedKey;
-    }
-
-    return Promise.resolve({
-        items: items,
-        lastKey: lastKey
-    });
+const createCart = async (): Promise<unknown> => {
+    return Promise.resolve();
 }
 
-export default scanCart;
+export default createCart;

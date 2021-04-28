@@ -1,0 +1,16 @@
+language: node_js
+
+node_js:
+  - 14
+
+install:
+  - npm install -g serverless
+  - npm install
+
+script:
+  - serverless deploy
+
+branches:
+  only:
+    - develop
+    - main

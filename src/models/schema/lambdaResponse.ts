@@ -66,7 +66,8 @@ export default class Response<T> {
         let response: APIGatewayProxyResult = {
             statusCode: this._statusCode,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             body: null
         };

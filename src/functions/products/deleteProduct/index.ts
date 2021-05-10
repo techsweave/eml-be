@@ -6,7 +6,7 @@ export default {
     events: [
         {
             http: {
-                method: 'post',
+                method: 'delete',
                 path: 'products/{id}',
                 cors: true
             }

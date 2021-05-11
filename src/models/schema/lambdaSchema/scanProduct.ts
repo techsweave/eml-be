@@ -5,7 +5,7 @@ export default {
             type: 'object',
             properties: {
                 type: { type: 'string' },
-                object: { type: 'any' },
+                object: { type: 'object' },
                 subject: { type: 'string' },
                 lowerBound: { type: 'number' },
                 upperBound: { type: 'number' },
@@ -13,7 +13,7 @@ export default {
                 conditions: {
                     type: 'array',
                     items: {
-                        type: 'any'
+                        type: 'object'
                     }
                 },
             },

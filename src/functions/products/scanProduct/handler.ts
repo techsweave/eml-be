@@ -8,18 +8,18 @@ import scanProduct from '@products/scanProduct/function'
 import HttpStatusCodes from '@lamdaModel/httpStatusCodes';
 
 
-//TODO: import schema from '@schema/lambdaSchema/scanProduct';
+import schema from '@schema/lambdaSchema/scanProduct';
 
 
 /*
  * Remember: event.body type is the type of the instantiation of ValidatedEventAPIGatewayProxyEvent
  * In this case event.body type is type of 'Product'
 */
-const scanProductHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
+const scanProductHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
     let res: Response<Product> = new Response<Product>();
 
     try {
-        let result = await scanProduct();
+        let result = await scanProduct(event.body);
         res = Response.fromMultipleData(result.items, HttpStatusCodes.OK, result.lastKey);
 
     } catch (error) {

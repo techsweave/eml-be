@@ -10,7 +10,12 @@ export default {
                 lowerBound: { type: 'number' },
                 upperBound: { type: 'number' },
                 condition: { type: 'object' },
-                conditions: { type: 'array' },
+                conditions: {
+                    type: 'array',
+                    items: {
+                        type: 'any'
+                    }
+                },
             },
             required: ['type']
         },

@@ -11,7 +11,7 @@ export default {
                 path: 'products/filter',
                 cors: true,
                 request: {
-                    schema: {
+                    schemas: {
                         'application/json': schema
                     }
                 }

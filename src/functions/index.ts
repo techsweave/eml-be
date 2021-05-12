@@ -5,3 +5,4 @@ export { default as createProduct } from '@products/createProduct';
 export { default as deleteProduct } from '@products/deleteProduct';
 export { default as createCheckout } from '@checkout/createCheckout';
 export { default as scanProduct } from '@products/scanProduct';
+export { default as updateProduct } from '@products/updateProduct';

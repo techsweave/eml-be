@@ -6,8 +6,8 @@ export default {
     events: [
         {
             http: {
-                method: 'post',
-                path: 'products/{id}/edit',
+                method: 'put',
+                path: 'products/{id}',
                 cors: true
             }
         }

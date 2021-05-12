@@ -29,15 +29,19 @@ const serverlessConfiguration: AWS = {
             STRIPE_SECRET_KEY: '${self:custom.stripeSecretKey}'
         },
 
-        iamRoleStatements: [
-            {
-                Effect: 'Allow',
-                Action: [
-                    'dynamodb:*',
-                ],
-                Resource: ['*']
+        iam: {
+            role: {
+                statements: [
+                    {
+                        Effect: 'Allow',
+                        Action: [
+                            'dynamodb:*',
+                        ],
+                        Resource: ['*']
+                    }
+                ]
             }
-        ]
+        }
     },
 
     custom: {

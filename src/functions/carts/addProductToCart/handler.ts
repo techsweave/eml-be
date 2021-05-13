@@ -12,10 +12,10 @@ const addProductToCartHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema>
     let response: Response<CartRow>;
     try {
         let cartRow = new CartRow();
+        //TODO change customer id with token from cognito
         cartRow.customerId = event.body?.customerId;
         cartRow.productId = event.body?.productId;
         cartRow.quantity = event.body?.quantity;
-        cartRow.id = cartRow.customerId + '_' + cartRow.productId;
 
         response = Response.fromData<CartRow>(await addProductToCart(cartRow), HttpStatusCodes.OK);
     } catch (error) {

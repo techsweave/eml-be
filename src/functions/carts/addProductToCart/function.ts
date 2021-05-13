@@ -1,17 +1,39 @@
+import { ScanOptions } from "@aws/dynamodb-data-mapper";
 import dbContext from "@dbModel/dbContext";
 import CartRow from "@dbModel/tables/cart";
 
 const addProductToCart = async (item: CartRow): Promise<CartRow> => {
-    let cartRow: CartRow;
-    try {
-        cartRow = await dbContext.get(item);
-        item.quantity = +item.quantity + +cartRow.quantity;
+    let dbScan: ScanOptions = {
+        filter: {
+            type: 'And',
+            conditions: [
+                {
+                    type: 'Equals',
+                    subject: 'customerId',
+                    object: item.customerId
+                },
+                {
+                    type: 'Equals',
+                    subject: 'productId',
+                    object: item.productId
+                }
+            ]
+        }
+    };
+    let cartRow = await dbContext.scan(CartRow, dbScan).pages();
+
+    console.log(cartRow);
 
 
-    } catch (error) {
-        console.log("item not found, will be created new db line");
+    for await (const page of cartRow) {
+        if (page.length == 0) {
+            return dbContext.put(item);
+        } else {
+            item.id = page[0].id;
+            item.quantity = +item.quantity + +page[0].quantity;
+            return dbContext.update(item);
+        }
     }
-    return dbContext.update(item);
 }
 
 export default addProductToCart;

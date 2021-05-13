@@ -1,14 +1,14 @@
 // import schema from './schema';
 import { handlerPath } from '@libs/handlerResolver';
-import schema from '@schema/lambdaSchema/addProductToCart';
+import schema from '@schema/lambdaSchema/editProductQuantityInCart';
 
 export default {
     handler: `${handlerPath(__dirname)}/handler.main`,
     events: [
         {
             http: {
-                method: 'post',
-                path: 'cart',
+                method: 'put',
+                path: 'cart/{id}',
                 cors: true,
                 request: {
                     schema: {

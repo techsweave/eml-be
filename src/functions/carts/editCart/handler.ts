@@ -4,21 +4,21 @@ import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
 import Response from '@lamdaModel/lambdaResponse';
 import CartRow from '@dbModel/tables/cart';
-import editProductQuantityInCart from '@carts/editProductQuantityInCart/function';
+import editCart from '@functions/carts/editCart/function';
 import HttpStatusCodes from '@lamdaModel/httpStatusCodes';
-import schema from '@schema/lambdaSchema/editProductQuantityInCart';
+import schema from '@schema/lambdaSchema/editCart';
 
-const editProductQuantityInCartHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+const editCartHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
     let response: Response<CartRow>;
     try {
         let cartRow = new CartRow();
         cartRow.id = event.pathParameters?.id;
         cartRow.quantity = event.body?.quantity;
-        response = Response.fromData<CartRow>(await editProductQuantityInCart(cartRow), HttpStatusCodes.OK);
+        response = Response.fromData<CartRow>(await editCart(cartRow), HttpStatusCodes.OK);
     } catch (error) {
         response = Response.fromError<CartRow>(error);
     }
     return await response.toAPIGatewayProxyResult();
 }
 
-export const main = middyfy(editProductQuantityInCartHandler);
+export const main = middyfy(editCartHandler);

@@ -1,9 +1,9 @@
-import { ScanOptions } from "@aws/dynamodb-data-mapper";
-import dbContext from "@dbModel/dbContext";
-import CartRow from "@dbModel/tables/cart";
+import { ScanOptions } from '@aws/dynamodb-data-mapper';
+import dbContext from '@dbModel/dbContext';
+import CartRow from '@dbModel/tables/cart';
 
 const addProductToCart = async (item: CartRow): Promise<CartRow> => {
-    let dbScan: ScanOptions = {
+    const dbScan: ScanOptions = {
         filter: {
             type: 'And',
             conditions: [
@@ -20,10 +20,7 @@ const addProductToCart = async (item: CartRow): Promise<CartRow> => {
             ]
         }
     };
-    let cartRow = await dbContext.scan(CartRow, dbScan).pages();
-
-    console.log(cartRow);
-
+    const cartRow = await dbContext.scan(CartRow, dbScan).pages();
 
     for await (const page of cartRow) {
         if (page.length == 0) {
@@ -34,6 +31,6 @@ const addProductToCart = async (item: CartRow): Promise<CartRow> => {
             return dbContext.update(item);
         }
     }
-}
+};
 
 export default addProductToCart;

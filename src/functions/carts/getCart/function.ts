@@ -1,17 +1,17 @@
-import dbContext from "@dbModel/dbContext";
-import CartRow from "@dbModel/tables/cart";
+import dbContext from '@dbModel/dbContext';
+import CartRow from '@dbModel/tables/cart';
 
 const scanCart = async (customerId: string): Promise<{
     items: CartRow[],
     lastKey: Partial<CartRow>
 }> => {
-    let items: CartRow[] = new Array();
+    let items: CartRow[] = [];
     let lastKey: Partial<CartRow>;
 
-    let paginator = dbContext.scan(CartRow, {
+    const paginator = dbContext.scan(CartRow, {
         filter: {
-            type: "Equals",
-            subject: "customerId",
+            type: 'Equals',
+            subject: 'customerId',
             object: customerId
         }
     }).pages();
@@ -25,6 +25,6 @@ const scanCart = async (customerId: string): Promise<{
         items: items,
         lastKey: lastKey
     });
-}
+};
 
 export default scanCart;

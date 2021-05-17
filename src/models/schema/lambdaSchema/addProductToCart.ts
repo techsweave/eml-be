@@ -1,5 +1,5 @@
 export default {
-    type: "object",
+    type: 'object',
     properties: {
         customerId: { type: 'string' },
         productId: { type: 'string' },

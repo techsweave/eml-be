@@ -10,7 +10,7 @@ import {
     updateProduct,
     addProductToCart,
     removeProductFromCart,
-    editProductQuantityInCart
+    editCart
 } from '@functions/index';
 
 const serverlessConfiguration: AWS = {
@@ -110,8 +110,8 @@ const serverlessConfiguration: AWS = {
                         { AttributeName: 'id', KeyType: 'HASH' }
                     ],
                     ProvisionedThroughput: {
-                        ReadCapacityUnits: "5",
-                        WriteCapacityUnits: "5"
+                        ReadCapacityUnits: '5',
+                        WriteCapacityUnits: '5'
                     }
                 },
 
@@ -127,8 +127,8 @@ const serverlessConfiguration: AWS = {
                         { AttributeName: 'id', KeyType: 'HASH' }
                     ],
                     ProvisionedThroughput: {
-                        ReadCapacityUnits: "5",
-                        WriteCapacityUnits: "5"
+                        ReadCapacityUnits: '5',
+                        WriteCapacityUnits: '5'
                     }
                 }
             },
@@ -159,7 +159,7 @@ const serverlessConfiguration: AWS = {
         createCheckout,
         scanProduct,
         updateProduct,
-        editProductQuantityInCart,
+        editCart,
         removeProductFromCart
     },
 };

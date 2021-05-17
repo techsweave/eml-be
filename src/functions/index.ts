@@ -6,5 +6,5 @@ export { default as createCheckout } from '@checkout/createCheckout';
 export { default as scanProduct } from '@products/scanProduct';
 export { default as updateProduct } from '@products/updateProduct';
 export { default as addProductToCart } from '@carts/addProductToCart';
-export { default as editProductQuantityInCart } from '@functions/carts/editCart';
+export { default as editCart } from '@functions/carts/editCart';
 export { default as removeProductFromCart } from '@carts/removeProductFromCart';

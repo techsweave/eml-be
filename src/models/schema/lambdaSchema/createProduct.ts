@@ -1,5 +1,5 @@
 export default {
-    type: "object",
+    type: 'object',
     properties: {
         name: { type: 'string' },
         price: { type: 'number' },

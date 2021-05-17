@@ -5,7 +5,7 @@ import { middyfy } from '@libs/lambda';
 import Response from '@lamdaModel/lambdaResponse';
 import CartRow from '@dbModel/tables/cart';
 import HttpStatusCodes from '@lamdaModel/httpStatusCodes';
-import getCart from '@carts/getCart/function'
+import getCart from '@carts/getCart/function';
 
 /*
  * Remember: event.body type is the type of the instantiation of ValidatedEventAPIGatewayProxyEvent
@@ -14,11 +14,11 @@ import getCart from '@carts/getCart/function'
 const getCartHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (event) => {
     let res: Response<CartRow> = new Response<CartRow>();
     try {
-        let scanRes = await getCart('customerDefault');
+        const scanRes = await getCart('customerDefault');
         res = Response.fromMultipleData(scanRes.items, HttpStatusCodes.OK, scanRes.lastKey);
     } catch (error) {
         res = Response.fromError<CartRow>(error);
     }
-    return await res.toAPIGatewayProxyResult();
-}
+    return res.toAPIGatewayProxyResult();
+};
 export const main = middyfy(getCartHandler);

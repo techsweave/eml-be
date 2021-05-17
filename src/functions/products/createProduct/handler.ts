@@ -16,7 +16,7 @@ const createProductHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = 
     let res: Response<Product>;
 
     try {
-        let putProduct: Product = new Product();
+        const putProduct: Product = new Product();
 
         putProduct.name = event.body.name;
         putProduct.price = event.body?.price;
@@ -29,7 +29,7 @@ const createProductHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = 
     } catch (error) {
         res = Response.fromError<Product>(error);
     }
-    return await res.toAPIGatewayProxyResult();
-}
+    return res.toAPIGatewayProxyResult();
+};
 
 export const main = middyfy(createProductHandler);

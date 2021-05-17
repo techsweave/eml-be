@@ -21,7 +21,7 @@ const deleteProductHandler: ValidatedEventAPIGatewayProxyEvent<void> = async (ev
     } catch (error) {
         res = Response.fromError<Product>(error);
     }
-    return await res.toAPIGatewayProxyResult();
-}
+    return res.toAPIGatewayProxyResult();
+};
 
 export const main = middyfy(deleteProductHandler);

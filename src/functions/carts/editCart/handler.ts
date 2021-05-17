@@ -11,14 +11,14 @@ import schema from '@schema/lambdaSchema/editCart';
 const editCartHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
     let response: Response<CartRow>;
     try {
-        let cartRow = new CartRow();
+        const cartRow = new CartRow();
         cartRow.id = event.pathParameters?.id;
         cartRow.quantity = event.body?.quantity;
         response = Response.fromData<CartRow>(await editCart(cartRow), HttpStatusCodes.OK);
     } catch (error) {
         response = Response.fromError<CartRow>(error);
     }
-    return await response.toAPIGatewayProxyResult();
-}
+    return response.toAPIGatewayProxyResult();
+};
 
 export const main = middyfy(editCartHandler);

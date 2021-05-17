@@ -14,7 +14,7 @@ const removeProductFromCartHandler: ValidatedEventAPIGatewayProxyEvent<void> = a
     } catch (error) {
         response = Response.fromError<CartRow>(error);
     }
-    return await response.toAPIGatewayProxyResult();
-}
+    return response.toAPIGatewayProxyResult();
+};
 
 export const main = middyfy(removeProductFromCartHandler);

@@ -1,18 +1,18 @@
-import getCart from '@carts/getCart/function'
-import getProduct from '@products/getProduct/function'
-import Stripe from 'stripe'
+import getCart from '@carts/getCart/function';
+import getProduct from '@products/getProduct/function';
+import Stripe from 'stripe';
 
 const createCheckout = async (customerId: string, successUrl: string, cancelUrl?: string): Promise<Stripe.Response<Stripe.Checkout.Session>> => {
 
 
-    let resultCart = await getCart(customerId);
-    let cartItems = new Array();
+    const resultCart = await getCart(customerId);
+    const cartItems = [];
     for (const i of resultCart.items) {
 
-        let productGet = await getProduct(i.productId);
+        const productGet = await getProduct(i.productId);
         cartItems.push({
             price_data: {
-                currency: "eur",
+                currency: 'eur',
                 product_data: {
                     name: productGet.name,
                     description: productGet.description,
@@ -20,11 +20,11 @@ const createCheckout = async (customerId: string, successUrl: string, cancelUrl?
                 unit_amount: productGet.price * 100, // eur to cent conversion
             },
             quantity: i.quantity
-        })
+        });
     }
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-        apiVersion: "2020-08-27",
+        apiVersion: '2020-08-27',
     });
 
     const session = await stripe.checkout.sessions.create({
@@ -37,6 +37,6 @@ const createCheckout = async (customerId: string, successUrl: string, cancelUrl?
 
     return Promise.resolve(session);
 
-}
+};
 
 export default createCheckout;

@@ -4,7 +4,7 @@ import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
 import Response from '@lamdaModel/lambdaResponse';
 import Product from '@dbModel/tables/product';
-import scanProduct from '@products/scanProduct/function'
+import scanProduct from '@products/scanProduct/function';
 import HttpStatusCodes from '@lamdaModel/httpStatusCodes';
 
 
@@ -19,13 +19,13 @@ const scanProductHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = as
     let res: Response<Product> = new Response<Product>();
 
     try {
-        let result = await scanProduct(event.body);
+        const result = await scanProduct(event.body);
         res = Response.fromMultipleData(result.items, HttpStatusCodes.OK, result.lastKey);
 
     } catch (error) {
         res = Response.fromError<Product>(error);
     }
-    return await res.toAPIGatewayProxyResult();
-}
+    return res.toAPIGatewayProxyResult();
+};
 
 export const main = middyfy(scanProductHandler);

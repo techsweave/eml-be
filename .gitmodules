@@ -1,0 +1,21 @@
+[submodule "utilities"]
+	path = utilities
+	url = https://github.com/techsweave/utilities
+[submodule "orders"]
+	path = orders
+	url = https://github.com/techsweave/orders
+[submodule "carts"]
+	path = carts
+	url = https://github.com/techsweave/carts
+[submodule "tags"]
+	path = tags
+	url = https://github.com/techsweave/tags
+[submodule "products"]
+	path = products
+	url = https://github.com/techsweave/products
+[submodule "logs"]
+	path = logs
+	url = https://github.com/techsweave/logs
+[submodule "categories"]
+	path = categories
+	url = https://github.com/techsweave/categories

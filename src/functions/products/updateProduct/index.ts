@@ -6,11 +6,11 @@ export default {
     events: [
         {
             http: {
-                method: 'post',
-                path: 'cart',
+                method: 'put',
+                path: 'products/{id}',
                 cors: true
             }
         }
     ]
-}
+};
 

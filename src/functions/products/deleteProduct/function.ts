@@ -1,10 +1,10 @@
 import dbContext from '@dbModel/dbContext';
 import Product from '@dbModel/tables/product';
 
-const getProduct = async (id: string): Promise<Product> => {
+const deleteProduct = async (id: string): Promise<Product> => {
     const item: Product = new Product();
     item.id = id;
-    return dbContext.get(item);
+    return dbContext.delete(item);
 };
 
-export default getProduct;
+export default deleteProduct;

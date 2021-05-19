@@ -1,17 +1,17 @@
 // import schema from './schema';
 import { handlerPath } from '@libs/handlerResolver';
-import schema from '@schema/lambdaSchema/createCheckout';
+import schema from '@schema/lambdaSchema/editCart';
 
 export default {
     handler: `${handlerPath(__dirname)}/handler.main`,
     events: [
         {
             http: {
-                method: 'post',
-                path: 'checkout',
+                method: 'put',
+                path: 'cart/{id}',
                 cors: true,
                 request: {
-                    schemas: {
+                    schema: {
                         'application/json': schema
                     }
                 }
@@ -19,4 +19,3 @@ export default {
         }
     ]
 };
-

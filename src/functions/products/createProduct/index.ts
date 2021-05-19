@@ -11,12 +11,12 @@ export default {
                 path: 'products',
                 cors: true,
                 request: {
-                    schema: {
+                    schemas: {
                         'application/json': schema
                     }
                 }
             }
         }
     ]
-}
+};
 

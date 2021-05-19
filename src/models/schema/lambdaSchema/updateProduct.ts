@@ -6,6 +6,5 @@ export default {
         description: { type: 'string' },
         availability: { type: 'number' },
         discount: { type: 'number' }
-    },
-    required: ['name', 'price']
-}as const;
+    }
+} as const;

@@ -1,5 +1,5 @@
 export default {
-    type: "object",
+    type: 'object',
     properties: {
         successUrl: { type: 'string' },
         cancelUrl: { type: 'string' }

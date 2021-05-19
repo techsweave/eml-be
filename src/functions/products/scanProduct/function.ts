@@ -1,14 +1,24 @@
-import dbContext from "@dbModel/dbContext";
-import Product from "@dbModel/tables/product";
+import dbContext from '@dbModel/dbContext';
+import Product from '@dbModel/tables/product';
+import { ScanOptions } from '@aws/dynamodb-data-mapper';
+import { objectToConditionExpression } from '@libs/shared/index';
 
-const scanProduct = async (): Promise<{
+
+const scanProduct = async (filter: any): Promise<{
     items: Product[],
     lastKey: Partial<Product>
 }> => {
-    let items: Product[] = new Array();
+    let items: Product[] = [];
     let lastKey: Partial<Product>;
+    const dbFilter: ScanOptions = {
+        limit: filter.limit,
+        indexName: filter.indexName,
+        pageSize: filter.pageSize,
+        startKey: filter.startKey,
+        filter: await objectToConditionExpression(filter.filter)
+    };
 
-    let paginator = dbContext.scan(Product).pages();
+    const paginator = dbContext.scan(Product, dbFilter).pages();
 
     for await (const page of paginator) {
         items = items.concat(page);
@@ -19,6 +29,6 @@ const scanProduct = async (): Promise<{
         items: items,
         lastKey: lastKey
     });
-}
+};
 
 export default scanProduct;

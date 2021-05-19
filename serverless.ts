@@ -1,7 +1,17 @@
 import type { AWS } from '@serverless/typescript';
 
-import { getProduct, getCart, createProduct, createCart, createCheckout, scanProduct } from '@functions/index';
-
+import {
+    getProduct,
+    getCart,
+    createProduct,
+    deleteProduct,
+    createCheckout,
+    scanProduct,
+    updateProduct,
+    addProductToCart,
+    removeProductFromCart,
+    editCart
+} from '@functions/index';
 
 const serverlessConfiguration: AWS = {
     service: 'eml-be',
@@ -29,15 +39,19 @@ const serverlessConfiguration: AWS = {
             STRIPE_SECRET_KEY: '${self:custom.stripeSecretKey}'
         },
 
-        iamRoleStatements: [
-            {
-                Effect: 'Allow',
-                Action: [
-                    'dynamodb:*',
-                ],
-                Resource: ['*']
+        iam: {
+            role: {
+                statements: [
+                    {
+                        Effect: 'Allow',
+                        Action: [
+                            'dynamodb:*',
+                        ],
+                        Resource: ['*']
+                    }
+                ]
             }
-        ]
+        }
     },
 
     custom: {
@@ -96,8 +110,8 @@ const serverlessConfiguration: AWS = {
                         { AttributeName: 'id', KeyType: 'HASH' }
                     ],
                     ProvisionedThroughput: {
-                        ReadCapacityUnits: "5",
-                        WriteCapacityUnits: "5"
+                        ReadCapacityUnits: '5',
+                        WriteCapacityUnits: '5'
                     }
                 },
 
@@ -113,8 +127,8 @@ const serverlessConfiguration: AWS = {
                         { AttributeName: 'id', KeyType: 'HASH' }
                     ],
                     ProvisionedThroughput: {
-                        ReadCapacityUnits: "5",
-                        WriteCapacityUnits: "5"
+                        ReadCapacityUnits: '5',
+                        WriteCapacityUnits: '5'
                     }
                 }
             },
@@ -140,9 +154,13 @@ const serverlessConfiguration: AWS = {
         getProduct,
         getCart,
         createProduct,
-        createCart,
+        deleteProduct,
+        addProductToCart,
         createCheckout,
-        scanProduct
+        scanProduct,
+        updateProduct,
+        editCart,
+        removeProductFromCart
     },
 };
 

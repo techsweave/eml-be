@@ -1,0 +1,10 @@
+cd carts
+sls deploy
+cd ../categories
+sls deploy
+cd ../orders
+sls deploy
+cd ../products
+sls deploy
+cd ../tags
+sls deploy
